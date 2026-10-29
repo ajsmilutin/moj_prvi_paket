@@ -17,8 +17,10 @@ def main() -> None:
     rclpy.init()
 
     node = Node('drugi_cvor')
+    node.declare_parameter('ime_teme', "moja_prva_tema")
 
-    subscriber = node.create_subscription(MojaPrvaPoruka, '/moja_prva_tema', 
+    ime_teme = node.get_parameter('ime_teme')
+    subscriber = node.create_subscription(MojaPrvaPoruka, ime_teme.get_parameter_value().string_value, 
         funkcija_koja_se_izvrsi, 10)
 
     rclpy.spin(node)

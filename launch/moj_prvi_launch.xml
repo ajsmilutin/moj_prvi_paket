@@ -1,8 +1,20 @@
 <launch>
-    <node name="moj_prvi_cvor_iz_launcha" pkg="moj_prvi_paket" exec="moj_prvi_cvor" output="screen"
-     args="--ros-args --params-file /home/ajsmilutin/predavanja_ws/src/parametri.yaml"/>
-     
-    <node name="moj_drugi_cvor_iz_launcha" pkg="moj_prvi_paket" exec="moj_drugi_cvor" output="screen"
-     args="--ros-args --params-file /home/ajsmilutin/predavanja_ws/src/parametri.yaml"/>
-    
+    <arg name="ime_teme"/>
+    <arg name="frekvencija" default="5.0"/>
+    <arg name="pokreni_turtlesim" default="false"/>
+
+    <node name="prvi_cvor_iz_launcha" pkg="moj_prvi_paket" exec="moj_prvi_cvor" namespace="prvi_namespace">
+        <param name="ime_teme" value="$(var ime_teme)"/>
+        <param name="frekvencija" value="$(var frekvencija)"/>
+        <param name="prag_temperature" value="30.0"/>
+    </node>
+
+    <node name="drugi_cvor" pkg="moj_prvi_paket" exec="moj_drugi_cvor" namespace="prvi_namespace">
+        <param name="ime_teme" value="$(var ime_teme)"/>
+        <param name="ispis_poruke" value="true"/>
+    </node>
+
+    <include file="$(find-pkg-share turtlesim)/launch/multisim.launch.py" if="$(var pokreni_turtlesim)" />
+
+    <node name="rviz2" pkg="rviz2" exec="rviz2" unless="$(var pokreni_turtlesim)" />
 </launch>

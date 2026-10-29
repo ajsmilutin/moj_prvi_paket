@@ -1,0 +1,27 @@
+launch:
+  - arg:
+      name: ime_teme
+  - arg:
+      name: frekvencija
+      default: "5.0"
+  - arg:
+      name: pokreni_turtlesim
+      default: "False"
+  - arg:
+      name: prag_temperature
+      default: "30.0"
+
+  - node:
+      name: prvi_yaml_cvor
+      pkg: moj_prvi_paket
+      exec: moj_prvi_cvor
+      namespace: yaml_namespace
+      param:
+        - name: frekvencija
+          value: $(var frekvencija)
+        - name: prag_temperature
+          value: $(var prag_temperature)
+  - include:
+      file: $(find-pkg-share turtlesim)/launch/multisim.launch.py
+      if: $(var pokreni_turtlesim)
+  
