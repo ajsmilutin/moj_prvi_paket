@@ -1,0 +1,8 @@
+<launch>
+    <node name="moj_prvi_cvor_iz_launcha" pkg="moj_prvi_paket" exec="moj_prvi_cvor" output="screen"
+     args="--ros-args --params-file /home/ajsmilutin/predavanja_ws/src/parametri.yaml"/>
+     
+    <node name="moj_drugi_cvor_iz_launcha" pkg="moj_prvi_paket" exec="moj_drugi_cvor" output="screen"
+     args="--ros-args --params-file /home/ajsmilutin/predavanja_ws/src/parametri.yaml"/>
+    
+</launch>
